@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  // This will be implemented later with actual blog posts
+  return [
+    {
+      params: { slug: 'first-post' },
+      props: {
+        title: 'مقال تجريبي الأول',
+        content: 'محتوى المقال التجريبي الأول. سيتم استبداله لاحقاً بالمحتوى الفعلي.',
+        publishDate: new Date('2024-02-20'),
+        tags: ['برمجة', 'تطوير-ويب']
+      }
+    },
+    {
+      params: { slug: 'second-post' },
+      props: {
+        title: 'مقال تجريبي الثاني',
+        content: 'محتوى المقال التجريبي الثاني. سيتم استبداله لاحقاً بالمحتوى الفعلي.',
+        publishDate: new Date('2024-02-21'),
+        tags: ['تقنية', 'برمجة']
+      }
+    }
+  ];
+}
+
+const { title, content, publishDate, tags } = Astro.props;
+---
+
+<Layout title={`${title} - Mohamed Tayel`}>
+  <article class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+    <h1 class="text-4xl font-bold mb-4">{title}</h1>
+    
+    <div class="text-gray-500 mb-6">
+      {publishDate.toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })}
+    </div>
+
+    <div class="flex gap-2 mb-8">
+      {tags.map(tag => (
+        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <div class="prose prose-lg max-w-none">
+      {content}
+    </div>
+
+    <div class="mt-8 pt-8 border-t">
+      <a href="/blog" class="text-primary hover:text-secondary transition-colors">
+        ← العودة إلى المدونة
+      </a>
+    </div>
+  </article>
+</Layout>

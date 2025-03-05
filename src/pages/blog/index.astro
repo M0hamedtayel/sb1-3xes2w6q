@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// This will be replaced with actual blog posts later
+const posts = [
+  {
+    title: 'مقال تجريبي الأول',
+    slug: 'first-post',
+    excerpt: 'هذا مقال تجريبي لتوضيح شكل المدونة وكيفية عرض المقالات.',
+    publishDate: new Date('2024-02-20'),
+    tags: ['برمجة', 'تطوير-ويب']
+  },
+  {
+    title: 'مقال تجريبي الثاني',
+    slug: 'second-post',
+    excerpt: 'هذا مقال تجريبي آخر لتوضيح شكل المدونة وكيفية عرض المقالات.',
+    publishDate: new Date('2024-02-21'),
+    tags: ['تقنية', 'برمجة']
+  }
+];
+---
+
+<Layout title="المدونة - Mohamed Tayel">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">المدونة</h1>
+    
+    <div class="grid gap-8">
+      {posts.map(post => (
+        <article class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-2xl font-bold mb-2">
+            <a href={`/blog/${post.slug}`} class="text-primary hover:text-secondary transition-colors">
+              {post.title}
+            </a>
+          </h2>
+          <div class="text-sm text-gray-500 mb-3">
+            {post.publishDate.toLocaleDateString('ar-EG', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </div>
+          <p class="text-gray-600 mb-4">{post.excerpt}</p>
+          <div class="flex gap-2">
+            {post.tags.map(tag => (
+              <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
